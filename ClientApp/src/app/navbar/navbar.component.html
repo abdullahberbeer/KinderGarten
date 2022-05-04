@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active" >KinderGarden</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" [routerLink]="['/users']" routerLinkActive="router-link-active" >Öğrenciler </a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" [routerLink]="['/register']" routerLinkActive="router-link-active" >Kullanıcı Ekle</a>
+      </li>
+
+    </ul>
+    <ul *ngIf="loggedIn()" class="navbar-nav">
+      <li class="navbar-nav">
+        <a [routerLink]="['/user-edit']" class="nav-link btn btn-sm btn-success text-light "  >{{authService.decodedToken.unique_name}}</a>
+      </li>
+      <li class="navbar-nav">
+        <a (click)="logout()" class="nav-link"  >Çıkış Yap</a>
+      </li>
+    </ul>
+    <form *ngIf="!loggedIn()" #form="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()">
+      <input #username="ngModel" required class="form-control mr-sm-2" [(ngModel)]="model.username" type="text" name="username" placeholder="Kullanıcı Adı" >
+      <input #password="ngModel" required class="form-control mr-sm-2" [(ngModel)]="model.password" type="text" name="password" placeholder="Parola" >
+      <button [disabled]="form.invalid" class="btn btn-outline-success my-2 my-sm-0" type="submit">Giriş Yap</button>
+    </form>
+  </div>
+</nav>
